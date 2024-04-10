@@ -1,7 +1,15 @@
 {
-  "type": "module",
   "dependencies": {
     "@solana/web3.js": "^1.91.4",
     "child_process": "^1.0.2"
-  }
+  },
+  "name": "ore",
+  "description": "This program is designed to retrieve and display reward balances for Solana addresses using private keys stored in a specified directory. It utilizes the Solana CLI tool and the \"ore\" command-line tool to fetch address information and rewards balances respectively.",
+  "version": "1.0.0",
+  "main": "checkOre.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }

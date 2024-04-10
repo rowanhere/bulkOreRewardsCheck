@@ -1,5 +1,5 @@
-import { spawnSync } from "child_process";
-import fs from "fs";
+const { spawnSync } = require("child_process");
+const fs = require("fs")
 
 const PATH = "/root/.config/solana/";
 
@@ -8,7 +8,7 @@ const getRewardsTable = async () => {
     const ListOfKeys = fs
       .readdirSync(PATH, { withFileTypes: true })
       .filter((item) => item.isFile() && item.name.endsWith(".json"))
-      .map((item) => `${item.path}/${item.name}`);
+      .map((item) => `${PATH}/${item.name}`);
     console.log(ListOfKeys);
 
     if (ListOfKeys.length === 0)
@@ -19,20 +19,20 @@ const getRewardsTable = async () => {
         const getAddress = spawnSync("solana", ["address", "-k", keys]);
         const getBalance = spawnSync("ore", ["--keypair", keys, "rewards"]);
 
-        // Wait for spawnSync calls to complete
+        // Check if stdout exists before calling toString() and trim()
         if (getAddress.error || getBalance.error) {
           resolve({
             Address: getAddress.error
               ? "Solana Cli not found"
-              : getAddress.stdout?.toString().trim() || "Invalid",
+              : (getAddress.stdout && getAddress.stdout.toString().trim()) || "Invalid",
             Balance: getBalance.error
               ? "Ore Cli not found"
-              : getBalance.stdout?.toString().trim() || "0",
+              : (getBalance.stdout && getBalance.stdout.toString().trim()) || "0",
           });
         } else {
           resolve({
-            Address: getAddress.stdout?.toString().trim() || "Invalid",
-            Balance: getBalance.stdout?.toString().trim() || "0",
+            Address: getAddress.stdout ? getAddress.stdout.toString().trim() : "Invalid",
+            Balance: getBalance.stdout ? getBalance.stdout.toString().trim() : "0",
           });
         }
       });
