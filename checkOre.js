@@ -1,10 +1,11 @@
 import { spawnSync  } from "child_process";
 import fs from "fs";
 
-const PATH = "./keys";
+const PATH = "/root/.config/solana/";
 
 const getRewardsTable = async () => {
   try {
+ 
     const ListOfKeys = fs
       .readdirSync(PATH, { withFileTypes: true })
       .filter((item) => item.isFile() && item.name.endsWith(".json"))
