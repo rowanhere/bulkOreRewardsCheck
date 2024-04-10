@@ -9,7 +9,7 @@ const getRewardsTable = async () => {
       .readdirSync(PATH, { withFileTypes: true })
       .filter((item) => item.isFile() && item.name.endsWith(".json"))
       .map((item) => `${item.path}/${item.name}`);
-
+     console.log(ListOfKeys);
     if (!(ListOfKeys.length > 0))
       throw new Error("No private keys found. Recheck your keys path.");
 
