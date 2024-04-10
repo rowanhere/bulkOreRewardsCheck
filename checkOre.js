@@ -9,7 +9,6 @@ const getRewardsTable = async () => {
       .readdirSync(PATH, { withFileTypes: true })
       .filter((item) => item.isFile() && item.name.endsWith(".json"))
       .map((item) => `${PATH}/${item.name}`);
-    console.log(ListOfKeys);
 
     if (ListOfKeys.length === 0)
       throw new Error("No private keys found. Recheck your keys path.");
@@ -25,14 +24,14 @@ const getRewardsTable = async () => {
             Address: getAddress.error
               ? "Solana Cli not found"
               : (getAddress.stdout && getAddress.stdout.toString().trim()) || "Invalid",
-            Balance: getBalance.error
+            Rewards: getBalance.error
               ? "Ore Cli not found"
               : (getBalance.stdout && getBalance.stdout.toString().trim()) || "0",
           });
         } else {
           resolve({
             Address: getAddress.stdout ? getAddress.stdout.toString().trim() : "Invalid",
-            Balance: getBalance.stdout ? getBalance.stdout.toString().trim() : "0",
+            Rewards: getBalance.stdout ? getBalance.stdout.toString().trim() : "0",
           });
         }
       });
